@@ -119,7 +119,8 @@
 					"第一種高度地区",
 					"ami:1koudo",
 					"ami:2koudo"
-				]
+				],
+				"fill-opacity": 0.5
 			}
 		},
 		{
@@ -136,7 +137,8 @@
 					24,
 					"ami:bouka",
 					"ami:jumbouka"
-				]
+				],
+				"fill-opacity": 0.5
 			}
 		},
 		{
