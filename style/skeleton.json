@@ -4,6 +4,10 @@
 	"glyphs": "https://gsi-cyberjapan.github.io/optimal_bvmap/glyphs/{fontstack}/{range}.pbf",
 	"sprite": "https://gsi-cyberjapan.github.io/optimal_bvmap/sprite/std",
 	"sources": {
+		"youto": {
+			"type": "geojson",
+			"data": "./data/27224_youto.geojson"
+		},
 		"v": {
 			"type": "vector",
 			"minzoom": 4,
@@ -16,10 +20,35 @@
 	},
 	"layers": [
 		{
-			"id": "background",
-			"type": "background",
+			"id": "youto-layer",
+			"source": "youto",
+			"type": "fill",
 			"paint": {
-				"background-color": "rgba(255,255,255,1)"
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"YoutoID"
+					],
+					3,
+					"#66cc66",
+					4,
+					"#ccff99",
+					5,
+					"#ffff99",
+					6,
+					"#ffcc99",
+					9,
+					"#ff99cc",
+					10,
+					"#ff6699",
+					11,
+					"#cc99ff",
+					12,
+					"#ccffff",
+					"#33cc99"
+				],
+				"fill-opacity": 0.5
 			}
 		},
 		{
