@@ -1,0 +1,1405 @@
+{
+	"version": 8,
+	"glyphs": "https://gsi-cyberjapan.github.io/optimal_bvmap/glyphs/{fontstack}/{range}.pbf",
+	"sprite": [
+		{
+			"id": "ami",
+			"url": "https://settsu-city-planning.github.io/City-Planning-Viewer/sprite/ami"
+		},
+		{
+			"id": "default",
+			"url": "https://settsu-city-planning.github.io/City-Planning-Viewer/sprite/std"
+		}
+	],
+	"sources": {
+		"plateau": {
+			"type": "vector",
+			"tiles": [
+				"https://settsu-city-planning.github.io/City-Planning-Viewer/tiles/{z}/{x}/{y}.pbf"
+			]
+		},
+		"shiiki": {
+			"type": "geojson",
+			"data": "./data/shiiki.geojson"
+		},
+		"keikakudouro": {
+			"type": "geojson",
+			"data": "./data/27224_douro.geojson"
+		},
+		"keikakuhaishi": {
+			"type": "geojson",
+			"data": "./data/haishi.geojson"
+		},
+		"youto": {
+			"type": "geojson",
+			"data": "./data/27224_youto.geojson"
+		},
+		"senbiki": {
+			"type": "geojson",
+			"data": "./data/27224_senbiki.geojson"
+		},
+		"koudoti": {
+			"type": "geojson",
+			"data": "./data/27224_koudoti.geojson"
+		},
+		"bouka": {
+			"type": "geojson",
+			"data": "./data/27224_bouka.geojson"
+		},
+		"toshishisetsu": {
+			"type": "geojson",
+			"data": "./data/toshishisetsu.geojson"
+		},
+		"sumpou": {
+			"type": "geojson",
+			"data": "./data/sumpou.geojson"
+		},
+		"v": {
+			"type": "vector",
+			"minzoom": 4,
+			"maxzoom": 16,
+			"tiles": [
+				"pmtiles://https://cyberjapandata.gsi.go.jp/xyz/optimal_bvmap-v1/optimal_bvmap-v1.pmtiles/{z}/{x}/{y}"
+			],
+			"attribution": "国土地理院最適化ベクトルタイル"
+		}
+	},
+	"layers": [
+		{
+			"id": "youto-layer",
+			"source": "youto",
+			"type": "fill",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"YoutoID"
+					],
+					3,
+					"#66cc66",
+					4,
+					"#ccff99",
+					5,
+					"#ffff99",
+					6,
+					"#ffcc99",
+					9,
+					"#ff99cc",
+					10,
+					"#ff6699",
+					11,
+					"#cc99ff",
+					12,
+					"#ccffff",
+					"#33cc99"
+				],
+				"fill-opacity": 0.5
+			}
+		},
+		{
+			"id": "senbiki-layer",
+			"source": "senbiki",
+			"type": "fill",
+			"paint": {
+				"fill-opacity": 0
+			}
+		},
+		{
+			"id": "koudoti-layer",
+			"source": "koudoti",
+			"type": "fill",
+			"paint": {
+				"fill-pattern": [
+					"match",
+					[
+						"get",
+						"Type"
+					],
+					"第一種高度地区",
+					"ami:1koudo",
+					"ami:2koudo"
+				]
+			}
+		},
+		{
+			"id": "bouka-layer",
+			"source": "bouka",
+			"type": "fill",
+			"paint": {
+				"fill-pattern": [
+					"match",
+					[
+						"get",
+						"kubunID"
+					],
+					24,
+					"ami:bouka",
+					"ami:jumbouka"
+				]
+			}
+		},
+		{
+			"id": "shiiki-layer",
+			"source": "shiiki",
+			"type": "fill",
+			"paint": {
+				"fill-opacity": 0
+			}
+		},
+		{
+			"id": "shiiki-line-layer",
+			"source": "shiiki",
+			"type": "line",
+			"paint": {
+				"line-color": "#000000",
+				"line-width": 5,
+				"line-opacity": 1,
+				"line-dasharray": [
+					1,
+					0.5,
+					5,
+					0.5
+				]
+			}
+		},
+		{
+			"id": "keikakudouro-layer",
+			"source": "keikakudouro",
+			"type": "line",
+			"paint": {
+				"line-color": "#ee5511",
+				"line-width": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					2,
+					0.1,
+					18,
+					2
+				],
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "keikakudouro-label-layer",
+			"source": "keikakudouro",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"symbol-placement": "line-center",
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff",
+				"text-opacity": 0.7
+			}
+		},
+		{
+			"id": "toshishisetsu-layer",
+			"source": "toshishisetsu",
+			"type": "line",
+			"paint": {
+				"line-color": [
+					"match",
+					[
+						"get",
+						"code"
+					],
+					3010,
+					"#33cc99",
+					3013,
+					"#66cc66",
+					3021,
+					"#cc99ff",
+					3022,
+					"#ccffff",
+					3043,
+					"#ffcc99",
+					3044,
+					"#ff99cc",
+					3093,
+					"#ff6699",
+					11,
+					"#cc99ff",
+					12,
+					"#ccffff",
+					"#2B64aa"
+				],
+				"line-opacity": 1
+			}
+		},
+		{
+			"id": "toshishisetsu-label-layer",
+			"source": "toshishisetsu",
+			"type": "symbol",
+			"minzoom": 13,
+			"layout": {
+				"text-field": [
+					"get",
+					"name"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-offset": [
+					0,
+					0.5
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					13,
+					8,
+					16,
+					12
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "keikakuhaishi-layer",
+			"source": "keikakuhaishi",
+			"type": "line",
+			"paint": {
+				"line-color": "#0087ff",
+				"line-dasharray": [
+					7,
+					5
+				]
+			}
+		},
+		{
+			"id": "sumpou-layer",
+			"source": "sumpou",
+			"type": "line",
+			"minzoom": 15,
+			"paint": {
+				"line-color": "#ee5511",
+				"line-opacity": 1
+			}
+		},
+		{
+			"id": "sumpou-label-layer",
+			"source": "sumpou",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"symbol-placement": "line-center",
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "行政区画",
+			"type": "fill",
+			"source": "v",
+			"source-layer": "AdmArea",
+			"maxzoom": 18,
+			"paint": {
+				"fill-color": "rgba(255,255,255,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "水域",
+			"maxzoom": 17,
+			"type": "fill",
+			"source": "v",
+			"source-layer": "WA",
+			"paint": {
+				"fill-color": "rgba(0,0,0,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "地形表記面",
+			"type": "fill",
+			"source": "v",
+			"maxzoom": 17,
+			"source-layer": "TpgphArea",
+			"paint": {
+				"fill-color": "rgba(0,0,0,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "地形表記面2",
+			"type": "fill",
+			"source": "v",
+			"source-layer": "TpgphArea",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"filter": [
+				"in",
+				[
+					"get",
+					"vt_flag17"
+				],
+				[
+					"literal",
+					[
+						1,
+						2
+					]
+				]
+			],
+			"paint": {
+				"fill-color": "rgba(0,0,0,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "海岸線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "Cstline",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "河川_線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "RvrCL",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "水涯線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "WL",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "水部表記線polygon",
+			"type": "fill",
+			"source": "v",
+			"source-layer": "WRltLine",
+			"maxzoom": 18,
+			"filter": [
+				"==",
+				[
+					"geometry-type"
+				],
+				"Polygon"
+			],
+			"paint": {
+				"fill-color": "rgba(255,255,255,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "水部表記線line",
+			"type": "line",
+			"source": "v",
+			"source-layer": "WRltLine",
+			"maxzoom": 18,
+			"filter": [
+				"==",
+				[
+					"geometry-type"
+				],
+				"LineString"
+			],
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "水部表記線point",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "WRltLine",
+			"maxzoom": 18,
+			"filter": [
+				"==",
+				[
+					"geometry-type"
+				],
+				"Point"
+			],
+			"layout": {
+				"icon-allow-overlap": true,
+				"icon-image": "流水方向",
+				"icon-size": 1.2,
+				"icon-rotate": [
+					"get",
+					"vt_angle"
+				],
+				"icon-rotation-alignment": "map"
+			}
+		},
+		{
+			"id": "行政区画界線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "AdmBdry",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "等高線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "Cntr",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "等高線数値部",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "Cntr",
+			"maxzoom": 18,
+			"filter": [
+				"==",
+				[
+					"get",
+					"vt_code"
+				],
+				7352
+			],
+			"layout": {
+				"text-allow-overlap": true,
+				"text-ignore-placement": true,
+				"symbol-placement": "line-center",
+				"text-pitch-alignment": "viewport",
+				"text-rotation-alignment": "map",
+				"text-size": 10,
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-max-angle": 360,
+				"text-field": [
+					"get",
+					"vt_alti"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "等深線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "Isbt",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "等深線数値部",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "Isbt",
+			"maxzoom": 18,
+			"filter": [
+				"==",
+				[
+					"get",
+					"vt_code"
+				],
+				7372
+			],
+			"layout": {
+				"text-allow-overlap": true,
+				"text-ignore-placement": true,
+				"symbol-placement": "line-center",
+				"text-pitch-alignment": "viewport",
+				"text-rotation-alignment": "map",
+				"text-size": 13,
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-max-angle": 360,
+				"text-field": [
+					"get",
+					"vt_depth"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "地形表記線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "TpgphLine",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "水部構造物面",
+			"type": "fill",
+			"source": "v",
+			"source-layer": "WStrA",
+			"maxzoom": 18,
+			"paint": {
+				"fill-color": "rgba(0,0,0,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "水部構造物線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "WStrL",
+			"maxzoom": 17,
+			"filter": [
+				"any",
+				[
+					"!",
+					[
+						"has",
+						"vt_flag17"
+					]
+				],
+				[
+					"in",
+					[
+						"get",
+						"vt_flag17"
+					],
+					[
+						"literal",
+						[
+							0,
+							1
+						]
+					]
+				]
+			],
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "水部構造物線2",
+			"type": "line",
+			"source": "v",
+			"source-layer": "WStrL",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"filter": [
+				"in",
+				[
+					"get",
+					"vt_flag17"
+				],
+				[
+					"literal",
+					[
+						1,
+						2
+					]
+				]
+			],
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "道路_線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "RdCL",
+			"maxzoom": 17,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "道路_線2",
+			"type": "line",
+			"source": "v",
+			"source-layer": "RdCL",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"filter": [
+				"all",
+				[
+					"in",
+					[
+						"get",
+						"vt_flag17"
+					],
+					[
+						"literal",
+						[
+							1,
+							2
+						]
+					]
+				]
+			],
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "鉄道_線",
+			"maxzoom": 17,
+			"type": "line",
+			"source": "v",
+			"source-layer": "RailCL",
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "鉄道_線2",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"type": "line",
+			"source": "v",
+			"source-layer": "RailCL",
+			"filter": [
+				"all",
+				[
+					"in",
+					[
+						"get",
+						"vt_flag17"
+					],
+					[
+						"literal",
+						[
+							1,
+							2
+						]
+					]
+				]
+			],
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "建築物_外周線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "BldA",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "地下駅",
+			"type": "fill",
+			"source": "v",
+			"source-layer": "UndergroundStation",
+			"maxzoom": 18,
+			"paint": {
+				"fill-color": "rgba(0,0,0,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "道路縁",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"type": "line",
+			"source": "v",
+			"source-layer": "RdEdg",
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "道路構成線",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"type": "line",
+			"source": "v",
+			"source-layer": "RdCompt",
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "軌道_線",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"type": "line",
+			"source": "v",
+			"source-layer": "RailTrCL",
+			"layout": {
+				"line-sort-key": [
+					"get",
+					"vt_drworder"
+				]
+			},
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "特定地区界",
+			"type": "line",
+			"source": "v",
+			"source-layer": "SpcfArea",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "構造物面",
+			"type": "fill",
+			"source": "v",
+			"source-layer": "StrctArea",
+			"maxzoom": 18,
+			"paint": {
+				"fill-color": "rgba(0,0,0,0)",
+				"fill-outline-color": "rgba(0,0,0,1)"
+			}
+		},
+		{
+			"id": "構造物面の外周線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "StrctArea",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "構造物線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "StrctLine",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "交通トンネル口",
+			"type": "line",
+			"source": "v",
+			"source-layer": "TrfTnnlEnt",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "送電線",
+			"type": "line",
+			"source": "v",
+			"source-layer": "PwrTrnsmL",
+			"maxzoom": 18,
+			"paint": {
+				"line-color": "rgba(0,0,0,1)",
+				"line-width": 1
+			}
+		},
+		{
+			"id": "記号",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "Anno",
+			"maxzoom": 18,
+			"layout": {
+				"icon-allow-overlap": true,
+				"icon-image": [
+					"step",
+					[
+						"zoom"
+					],
+					[
+						"match",
+						[
+							"get",
+							"vt_code"
+						],
+						[
+							1301,
+							1302,
+							1303
+						],
+						"人口50万人未満-500",
+						""
+					],
+					6,
+					[
+						"match",
+						[
+							"get",
+							"vt_code"
+						],
+						1301,
+						"人口100万人以上-500",
+						1302,
+						"人口50万-100万人未満-500",
+						1303,
+						"人口50万人未満-500",
+						6368,
+						"主要な港-500",
+						6376,
+						"主要な空港-500",
+						7201,
+						"標高点（測点）-20",
+						""
+					],
+					8,
+					[
+						"match",
+						[
+							"get",
+							"vt_code"
+						],
+						1401,
+						"都道府県所在地-100",
+						1402,
+						"市役所・東京都の区役所（都道府県所在都市以外）-20",
+						1403,
+						"町・村-20",
+						2901,
+						"国道番号-20",
+						2903,
+						"都市高速道路番号-20",
+						2904,
+						"高速道路番号-20",
+						2941,
+						"インターチェンジ-20",
+						2942,
+						"ジャンクション-20",
+						2945,
+						"スマートインターチェンジ-20",
+						3221,
+						"灯台-20",
+						6351,
+						"採鉱地-20",
+						6367,
+						"特定重要港-20",
+						6368,
+						"重要港-20",
+						6375,
+						"国際空港-20",
+						6376,
+						"国際空港以外の拠点空港等-20",
+						7102,
+						"標高点（測点）-20",
+						7201,
+						"標高点（測点）-20",
+						7221,
+						"火山-20",
+						""
+					],
+					11,
+					[
+						"match",
+						[
+							"get",
+							"vt_code"
+						],
+						621,
+						"都道府県所在地-20",
+						631,
+						"高等学校・中等教育学校-20",
+						632,
+						"高等学校・中等教育学校-20",
+						633,
+						"高等学校・中等教育学校-20",
+						653,
+						"発電所等-20",
+						661,
+						"神社-20",
+						662,
+						"寺院-20",
+						2901,
+						"国道番号-20",
+						2903,
+						"都市高速道路番号-20",
+						2904,
+						"高速道路番号-20",
+						2941,
+						"インターチェンジ-20",
+						2942,
+						"ジャンクション-20",
+						2945,
+						"スマートインターチェンジ-20",
+						3205,
+						"市役所・東京都の区役所-20",
+						3206,
+						"町村役場・政令指定都市の区役所-20",
+						3212,
+						"高等学校・中等教育学校-20",
+						3218,
+						"郵便局-20",
+						3221,
+						"灯台-20",
+						3231,
+						"神社-20",
+						3232,
+						"寺院-20",
+						3241,
+						"警察署-20",
+						3243,
+						"病院-20",
+						3261,
+						"工場-20",
+						4102,
+						"風車-20",
+						4103,
+						"油井・ガス井-20",
+						6311,
+						"田-20",
+						6312,
+						"畑-20",
+						6313,
+						"畑-20",
+						6314,
+						"畑-20",
+						6321,
+						"広葉樹林",
+						6322,
+						"針葉樹林-20",
+						6331,
+						"温泉-20",
+						6332,
+						"噴火口・噴気口-20",
+						6341,
+						"史跡・名勝・天然記念物-20",
+						6342,
+						"城跡-20",
+						6351,
+						"採鉱地-20",
+						6361,
+						"港湾-20",
+						6362,
+						"漁港-20",
+						6367,
+						"特定重要港-20",
+						6371,
+						"国際空港-20",
+						6373,
+						"自衛隊等の飛行場-20",
+						6375,
+						"国際空港-20",
+						6381,
+						"自衛隊-20",
+						7101,
+						"電子基準点-20",
+						7102,
+						"三角点-20",
+						7201,
+						"標高点（測点）-20",
+						8103,
+						"発電所等-20",
+						""
+					],
+					14,
+					[
+						"match",
+						[
+							"get",
+							"vt_code"
+						],
+						2901,
+						"国道番号-20",
+						3201,
+						"官公署",
+						3202,
+						"裁判所",
+						3203,
+						"税務署",
+						3204,
+						"外国公館",
+						3205,
+						"市役所・東京都の区役所",
+						3206,
+						"町村役場・政令指定都市の区役所",
+						3211,
+						"交番",
+						3212,
+						"高等学校・中等教育学校",
+						3213,
+						"小学校",
+						3214,
+						"小学校",
+						3215,
+						"老人ホーム",
+						3216,
+						"博物館法の登録博物館・博物館相当施設",
+						3217,
+						"図書館",
+						3218,
+						"郵便局",
+						3221,
+						"灯台",
+						3231,
+						"神社",
+						3232,
+						"寺院",
+						3241,
+						"警察署",
+						3242,
+						"消防署",
+						3243,
+						"病院",
+						3244,
+						"保健所",
+						4101,
+						"煙突",
+						4102,
+						"風車",
+						4103,
+						"油井・ガス井",
+						4104,
+						"記念碑",
+						4105,
+						"自然災害伝承碑",
+						5801,
+						"滝",
+						6301,
+						"墓地",
+						6311,
+						"田",
+						6312,
+						"畑",
+						6313,
+						"茶畑",
+						6314,
+						"果樹園",
+						6321,
+						"広葉樹林",
+						6322,
+						"針葉樹林",
+						6323,
+						"竹林",
+						6324,
+						"ヤシ科樹林",
+						6325,
+						"ハイマツ地",
+						6326,
+						"笹地",
+						6327,
+						"荒地",
+						6331,
+						"温泉",
+						6332,
+						"噴火口・噴気口",
+						6341,
+						"史跡・名勝・天然記念物",
+						6342,
+						"城跡",
+						6351,
+						"採鉱地",
+						6361,
+						"港湾",
+						6362,
+						"漁港",
+						7101,
+						"電子基準点",
+						7102,
+						"三角点",
+						7103,
+						"水準点",
+						7201,
+						"標高点（測点）",
+						7601,
+						"砂礫地（領域が不明瞭な場合）-20",
+						7621,
+						"雨裂（下部）-20",
+						7701,
+						"水面標高-20",
+						7711,
+						"水深-20",
+						8103,
+						"発電所等",
+						8105,
+						"電波塔",
+						""
+					],
+					17,
+					[
+						"match",
+						[
+							"get",
+							"vt_code"
+						],
+						2901,
+						"国道番号-20",
+						4105,
+						"自然災害伝承碑",
+						7101,
+						"電子基準点",
+						""
+					]
+				],
+				"icon-size": 0.5
+			}
+		},
+		{
+			"id": "bldg",
+			"type": "fill-extrusion",
+			"source": "plateau",
+			"source-layer": "bldg:Building",
+			"minzoom": 10,
+			"maxzoom": 20,
+			"paint": {
+				"fill-extrusion-color": "#aaaaaa",
+				"fill-extrusion-height": [
+					"get",
+					"measuredHeight"
+				],
+				"fill-extrusion-opacity": 0.7
+			}
+		},
+		{
+			"id": "注記",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "Anno",
+			"maxzoom": 14,
+			"layout": {
+				"text-allow-overlap": true,
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-size": 10,
+				"text-field": [
+					"get",
+					"vt_text"
+				],
+				"text-writing-mode": [
+					"horizontal"
+				]
+			},
+			"paint": {
+				"text-color": [
+					"match",
+					[
+						"get",
+						"vt_code"
+					],
+					[
+						6368,
+						6376,
+						631,
+						632,
+						633,
+						661,
+						662
+					],
+					"rgba(0,0,0,0)",
+					"rgba(0,0,0,1)"
+				]
+			}
+		},
+		{
+			"id": "注記2",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "Anno",
+			"minzoom": 14,
+			"maxzoom": 17,
+			"filter": [
+				"any",
+				[
+					"!",
+					[
+						"has",
+						"vt_flag17"
+					]
+				],
+				[
+					"in",
+					[
+						"get",
+						"vt_flag17"
+					],
+					[
+						"literal",
+						[
+							0,
+							1
+						]
+					]
+				]
+			],
+			"layout": {
+				"text-allow-overlap": true,
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-size": 10,
+				"text-field": [
+					"get",
+					"vt_text"
+				],
+				"text-writing-mode": [
+					"horizontal"
+				]
+			},
+			"paint": {
+				"text-color": [
+					"match",
+					[
+						"get",
+						"vt_code"
+					],
+					[
+						3201,
+						3204,
+						3212,
+						3213,
+						3214,
+						3215,
+						3216,
+						3217,
+						3218,
+						3243
+					],
+					"rgba(0,0,0,0)",
+					"rgba(0,0,0,1)"
+				]
+			}
+		},
+		{
+			"id": "注記3",
+			"type": "symbol",
+			"source": "v",
+			"source-layer": "Anno",
+			"minzoom": 17,
+			"maxzoom": 18,
+			"filter": [
+				"all",
+				[
+					"in",
+					[
+						"get",
+						"vt_flag17"
+					],
+					[
+						"literal",
+						[
+							1,
+							2
+						]
+					]
+				]
+			],
+			"layout": {
+				"text-allow-overlap": true,
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-size": 10,
+				"text-field": [
+					"get",
+					"vt_text"
+				],
+				"text-writing-mode": [
+					"horizontal"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(0,0,0,1)"
+			}
+		}
+	]
+}

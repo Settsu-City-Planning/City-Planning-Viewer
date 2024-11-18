@@ -1,0 +1,6 @@
+{
+"1koudo" : {"width":32,"height":32, "x":0,"y":0,"pixelRatio":1,"visible":true},
+"2koudo" : {"width":32,"height":32, "x":32,"y":0,"pixelRatio":1,"visible":true},
+"bouka" : {"width":32,"height":32, "x":0,"y":32,"pixelRatio":1,"visible":true},
+"jumbouka" : {"width":32,"height":32, "x":32,"y":32,"pixelRatio":1,"visible":true}
+}
