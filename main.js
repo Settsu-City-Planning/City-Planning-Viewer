@@ -90,7 +90,7 @@ async function updateResults() {
     let i = 0;
     const fc = { type: "FeatureCollection", features: [] };
     let iter = flatgeobuf.deserialize(
-        "/data/r1chikeizu.fgb",
+        "./data/r1chikeizu.fgb",
         fgbBoundingBox()
     );
     for await (let feature of iter) {
@@ -175,7 +175,7 @@ map.on("load", () => {
         }
     });
 
-    updateResults = _.throttle(updateResults, 11000);
+    updateResults = _.throttle(updateResults, 1000);
 
     updateResults();
 
