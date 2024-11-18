@@ -174,13 +174,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
-        updateResults = _.throttle(updateResults, 1000);
+        updateResults = _.throttle(updateResults, 500);
 
         updateResults();
 
         map.on("moveend", function (s) {
             updateResults();
         });
-
     });
 });
