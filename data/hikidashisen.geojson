@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "hikidashisen",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "text": null, "layer": "kyoten" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 135.580841405043003, 34.769888856485039 ], [ 135.580449119462713, 34.770845490665565 ] ] ] } },
+{ "type": "Feature", "properties": { "id": null, "text": "千里丘駅西地区第１種市街地再開発事業（約１．５３ｈａ）", "layer": "saikaihatsu" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 135.547824250448599, 34.793626260539924 ], [ 135.548545338055476, 34.791321946795229 ] ] ] } },
+{ "type": "Feature", "properties": { "id": null, "text": "千里丘駅前第１種市街地再開発事業（約１．３０ｈａ）", "layer": "saikaihatsu" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 135.552990904524734, 34.79367798272316 ], [ 135.551665386559961, 34.791532436893306 ] ] ] } },
+{ "type": "Feature", "properties": { "id": null, "text": "一団地の都市安全確保拠点施設(鳥飼地区)", "layer": "kyoten" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 135.580449119462713, 34.770845490665565 ], [ 135.582776690531347, 34.770361060588094 ] ] ] } }
+]
+}

@@ -2,7 +2,16 @@
 	"version": 8,
 	"name": "optbv",
 	"glyphs": "https://gsi-cyberjapan.github.io/optimal_bvmap/glyphs/{fontstack}/{range}.pbf",
-	"sprite": "https://gsi-cyberjapan.github.io/optimal_bvmap/sprite/std",
+	"sprite": [
+		{
+			"id": "ami",
+			"url": "https://settsu-city-planning.github.io/City-Planning-Viewer/sprite/ami"
+		},
+		{
+			"id": "default",
+			"url": "https://gsi-cyberjapan.github.io/optimal_bvmap/sprite/std"
+		}
+	],
 	"sources": {
 		"v": {
 			"type": "vector",
@@ -12,9 +21,128 @@
 				"pmtiles://https://cyberjapandata.gsi.go.jp/xyz/optimal_bvmap-v1/optimal_bvmap-v1.pmtiles/{z}/{x}/{y}"
 			],
 			"attribution": "国土地理院最適化ベクトルタイル"
+		},
+		"tran": {
+			"type": "vector",
+			"tiles": [
+				"https://settsu-city-planning.github.io/City-Planning-Viewer/tran_mvt_lod1/{z}/{x}/{y}.mvt"
+			]
+		},
+		"bldg": {
+			"type": "vector",
+			"tiles": [
+				"https://settsu-city-planning.github.io/City-Planning-Viewer/bldg_mvt_lod1/{z}/{x}/{y}.pbf"
+			]
+		},
+		"shiiki": {
+			"type": "geojson",
+			"data": "./data/shiiki.geojson"
+		},
+		"senbiki": {
+			"type": "geojson",
+			"data": "./data/27224_senbiki.geojson"
+		},
+		"youto": {
+			"type": "geojson",
+			"data": "./data/27224_youto.geojson"
+		},
+		"tkbt": {
+			"type": "geojson",
+			"data": "./data/27224_tkbt.geojson"
+		},
+		"koudoti": {
+			"type": "geojson",
+			"data": "./data/27224_koudoti.geojson"
+		},
+		"bouka": {
+			"type": "geojson",
+			"data": "./data/27224_bouka.geojson"
+		},
+		"chikukei": {
+			"type": "geojson",
+			"data": "./data/27224_chikukei.geojson"
+		},
+		"douro": {
+			"type": "geojson",
+			"data": "./data/27224_douro.geojson"
+		},
+		"shisetsu": {
+			"type": "geojson",
+			"data": "./data/shisetsu.geojson"
+		},
+		"train": {
+			"type": "geojson",
+			"data": "./data/train.geojson"
+		},
+		"haishisen": {
+			"type": "geojson",
+			"data": "./data/haishisen.geojson"
+		},
+		"sumpousen": {
+			"type": "geojson",
+			"data": "./data/sumpousen.geojson"
+		},
+		"hikidashisen": {
+			"type": "geojson",
+			"data": "./data/hikidashisen.geojson"
+		},
+		"chuuki": {
+			"type": "geojson",
+			"data": "./data/chuuki.geojson"
 		}
 	},
 	"layers": [
+		{
+			"id": "tran-fill",
+			"type": "fill",
+			"source": "tran",
+			"source-layer": "Road",
+			"minzoom": 8,
+			"maxzoom": 17,
+			"paint": {
+				"fill-color": "#aaaaaa"
+			}
+		},
+		{
+			"id": "senbiki-fill",
+			"source": "senbiki",
+			"type": "fill",
+			"paint": {
+				"fill-opacity": 0
+			}
+		},
+		{
+			"id": "youto-fill",
+			"source": "youto",
+			"type": "fill",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"YoutoID"
+					],
+					3,
+					"#66cc66",
+					4,
+					"#ccff99",
+					5,
+					"#ffff99",
+					6,
+					"#ffcc99",
+					9,
+					"#ff99cc",
+					10,
+					"#ff6699",
+					11,
+					"#cc99ff",
+					12,
+					"#ccffff",
+					"#33cc99"
+				],
+				"fill-opacity": 0.5
+			}
+		},
 		{
 			"id": "行政区画",
 			"type": "fill",
@@ -564,6 +692,438 @@
 			}
 		},
 		{
+			"id": "tkbt-line",
+			"source": "tkbt",
+			"type": "line",
+			"paint": {
+				"line-color": "#222222"
+			}
+		},
+		{
+			"id": "koudoti-fill",
+			"source": "koudoti",
+			"type": "fill",
+			"paint": {
+				"fill-pattern": [
+					"match",
+					[
+						"get",
+						"Type"
+					],
+					"第一種高度地区",
+					"ami:1koudo",
+					"ami:2koudo"
+				],
+				"fill-opacity": 0.5
+			}
+		},
+		{
+			"id": "bouka-fill",
+			"source": "bouka",
+			"type": "fill",
+			"paint": {
+				"fill-pattern": [
+					"match",
+					[
+						"get",
+						"kubunID"
+					],
+					24,
+					"ami:bouka",
+					"ami:jumbouka"
+				],
+				"fill-opacity": 0.5
+			}
+		},
+		{
+			"id": "shiiki-line",
+			"source": "shiiki",
+			"type": "line",
+			"paint": {
+				"line-color": "#222222",
+				"line-width": 5,
+				"line-dasharray": [
+					1,
+					0.5,
+					5,
+					0.5
+				]
+			}
+		},
+		{
+			"id": "train-line",
+			"source": "train",
+			"type": "line",
+			"paint": {
+				"line-color": "#222222",
+				"line-width": 1,
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "douro-line",
+			"source": "douro",
+			"type": "line",
+			"paint": {
+				"line-color": "#ee5511",
+				"line-width": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					2,
+					0.1,
+					18,
+					2
+				],
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "shisetsu-line",
+			"source": "shisetsu",
+			"type": "line",
+			"paint": {
+				"line-color": [
+					"match",
+					[
+						"get",
+						"code"
+					],
+					3010,
+					"#ff8000",
+					3013,
+					"#804000",
+					3021,
+					"#008000",
+					3022,
+					"#008000",
+					4004,
+					"#ff8000",
+					"#806300"
+				],
+				"line-width": 4,
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "chikukei-line",
+			"source": "chikukei",
+			"type": "line",
+			"paint": {
+				"line-color": "#0000ff",
+				"line-width": 3,
+				"line-opacity": 0.8
+			}
+		},
+		{
+			"id": "haishisen-line",
+			"source": "haishisen",
+			"type": "line",
+			"paint": {
+				"line-color": "#0087ff",
+				"line-dasharray": [
+					7,
+					5
+				]
+			}
+		},
+		{
+			"id": "sumpousen-line",
+			"source": "sumpousen",
+			"type": "line",
+			"minzoom": 15,
+			"paint": {
+				"line-color": "#ee5511",
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "bldg-fill",
+			"type": "fill-extrusion",
+			"source": "bldg",
+			"source-layer": "bldg:Building",
+			"minzoom": 8,
+			"maxzoom": 17,
+			"paint": {
+				"fill-extrusion-color": "#aaaaaa",
+				"fill-extrusion-height": [
+					"get",
+					"measuredHeight"
+				],
+				"fill-extrusion-opacity": 0.7
+			}
+		},
+		{
+			"id": "hikidashisen-line",
+			"source": "hikidashisen",
+			"type": "line",
+			"minzoom": 15,
+			"paint": {
+				"line-color": "#ee5511",
+				"line-width": 3,
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "tran-symbol",
+			"source": "tran",
+			"source-layer": "Road",
+			"minzoom": 16,
+			"type": "symbol",
+			"layout": {
+				"text-field": [
+					"get",
+					"gml_name"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					16,
+					12
+				]
+			},
+			"paint": {
+				"text-color": "#222222",
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "chikukei-symbol",
+			"source": "chikukei",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"text-field": [
+					"get",
+					"名称"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					16,
+					12
+				]
+			},
+			"paint": {
+				"text-color": "#0000ff",
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "douro-symbol",
+			"source": "douro",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"symbol-placement": "line-center",
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff",
+				"text-opacity": 0.7
+			}
+		},
+		{
+			"id": "shisetsu-symbol",
+			"source": "shisetsu",
+			"type": "symbol",
+			"minzoom": 13,
+			"layout": {
+				"text-field": [
+					"get",
+					"name"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					13,
+					8,
+					20,
+					16
+				]
+			},
+			"paint": {
+				"text-color": [
+					"match",
+					[
+						"get",
+						"code"
+					],
+					3010,
+					"#ff8000",
+					3013,
+					"#804000",
+					3021,
+					"#008000",
+					3022,
+					"#008000",
+					4004,
+					"#ff8000",
+					"#806300"
+				],
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "sumpousen-symbol",
+			"source": "sumpousen",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"symbol-placement": "line-center",
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "hikidashisen-symbol",
+			"source": "hikidashisen",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 2,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "chuuki-symbol",
+			"source": "chuuki",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					16
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
 			"id": "記号",
 			"type": "symbol",
 			"source": "v",
@@ -921,7 +1481,7 @@
 				]
 			},
 			"paint": {
-				"text-color":[
+				"text-color": [
 					"match",
 					[
 						"get",
@@ -937,7 +1497,7 @@
 						662
 					],
 					"rgba(0,0,0,0)",
-					 "rgba(0,0,0,1)"
+					"rgba(0,0,0,1)"
 				]
 			}
 		},
@@ -987,7 +1547,7 @@
 				]
 			},
 			"paint": {
-				"text-color":[
+				"text-color": [
 					"match",
 					[
 						"get",
