@@ -1,0 +1,24 @@
+body { margin:0; padding:0; }
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+#map canvas {
+  cursor: crosshair;
+}
+#menu {
+	position: absolute;
+	top:0%;
+	right:0%;
+	background: #3e3e3ec7;
+	color: #ffffff;
+	padding: 10px;
+	font-family: 'Open Sans', sans-serif;
+}
+#menu ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+}
