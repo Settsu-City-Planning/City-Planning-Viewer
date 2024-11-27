@@ -16,17 +16,11 @@
 	},
 	"layers": [
 		{
-			"id": "background",
-			"type": "background",
-			"paint": {
-				"background-color": "rgba(255,255,255,1)"
-			}
-		},
-		{
 			"id": "行政区画",
 			"type": "fill",
 			"source": "v",
 			"source-layer": "AdmArea",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(255,255,255,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -60,6 +54,7 @@
 			"source": "v",
 			"source-layer": "TpgphArea",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"filter": [
 				"in",
 				[
@@ -84,6 +79,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "Cstline",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -94,6 +90,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "RvrCL",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -104,6 +101,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "WL",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -114,6 +112,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "WRltLine",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -131,6 +130,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "WRltLine",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -148,6 +148,7 @@
 			"type": "symbol",
 			"source": "v",
 			"source-layer": "WRltLine",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -171,6 +172,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "AdmBdry",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -181,6 +183,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "Cntr",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -191,6 +194,7 @@
 			"type": "symbol",
 			"source": "v",
 			"source-layer": "Cntr",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -224,6 +228,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "Isbt",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -234,6 +239,7 @@
 			"type": "symbol",
 			"source": "v",
 			"source-layer": "Isbt",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -267,6 +273,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "TpgphLine",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -277,6 +284,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "WStrA",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(0,0,0,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -323,6 +331,7 @@
 			"source": "v",
 			"source-layer": "WStrL",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"filter": [
 				"in",
 				[
@@ -359,6 +368,7 @@
 			"source": "v",
 			"source-layer": "RdCL",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"filter": [
 				"all",
 				[
@@ -395,6 +405,7 @@
 		{
 			"id": "鉄道_線2",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RailCL",
@@ -425,6 +436,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "BldA",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -435,6 +447,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "UndergroundStation",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(0,0,0,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -443,6 +456,7 @@
 		{
 			"id": "道路縁",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RdEdg",
@@ -454,6 +468,7 @@
 		{
 			"id": "道路構成線",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RdCompt",
@@ -465,6 +480,7 @@
 		{
 			"id": "軌道_線",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RailTrCL",
@@ -484,6 +500,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "SpcfArea",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -494,6 +511,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "StrctArea",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(0,0,0,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -504,6 +522,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "StrctArea",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -515,6 +534,7 @@
 			"source": "v",
 			"source-layer": "StrctLine",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -526,6 +546,7 @@
 			"source": "v",
 			"source-layer": "TrfTnnlEnt",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -536,6 +557,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "PwrTrnsmL",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
