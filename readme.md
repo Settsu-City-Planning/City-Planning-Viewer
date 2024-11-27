@@ -39,6 +39,10 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [Add a pattern to a polygon - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/fill-pattern/)
 
+[Show polygon information on click - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/polygon-popup-on-click/)
+
+[位置情報エンジニアリングのすすめ - 第8回「防災マップの作成③ポップアップ機能による地点の情報表示」](https://zenn.dev/mierune_inc/books/location-engineering/viewer/part8)
+
 [FlatGeobuf - MapLibre Example - Filtering a Large Dataset](https://flatgeobuf.org/examples/maplibre/large.html)
 
 [MapLibreでFlatGeobuf形式の町丁目ポリゴンを表示してみる](https://qiita.com/y-mto/items/185af00a224f4c9730a0)
