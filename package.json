@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "maplibre-gl": "^4.7.1",
-    "pmtiles": "^4.0.1"
+    "pmtiles": "^4.0.1",
+    "underscore": "^1.13.7"
   }
 }
