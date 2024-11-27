@@ -8,6 +8,9 @@ body { margin:0; padding:0; }
 #map canvas {
   cursor: crosshair;
 }
+.maplibregl-popup {
+	font: 16px/20px 'BIZ UDPGothic', 'Hiragino Kaku Gothic Pro', sans-serif;
+}
 #menu {
 	position: absolute;
 	top:0%;
