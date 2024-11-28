@@ -8,6 +8,7 @@ import {
   Format,
 } from '@watergis/maplibre-gl-export';
 import '@watergis/maplibre-gl-export/dist/maplibre-gl-export.css';
+import U from 'map-gl-utils'
 import { Protocol } from "pmtiles";
 import { throttle } from 'underscore';
 
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     minZoom: 4,
     localIdeographFontFamily: ['BIZ UDPGothic', 'sans-serif']
   });
+  U.init(map)
 
   // convert the rect into the format flatgeobuf expects
   function fgBoundingBox() {
@@ -185,10 +187,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   let check2 = document.getElementById('bdr');
 
   document.getElementById('style').addEventListener('click', () => {
-    check1.checked ? map.setStyle('./style/std.json') : map.setStyle('./style/skeleton.json');
+    const bool = Boolean(check1.checked);
+    map.U.toggle('r-raster', bool);
+    map.U.toggle(['tran-fill', 'bldg-fill'], !bool);
+    map.U.toggleSource('v', !bool);
   });
 
   document.getElementById('bdr').addEventListener('click', () => {
-    check2.checked ? map.showTileBoundaries = true : map.showTileBoundaries = false;
+    map.U.toggle(/-symbol$/, check2.checked);
   });
 });

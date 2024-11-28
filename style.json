@@ -13,6 +13,13 @@
 		}
 	],
 	"sources": {
+		"r": {
+			"type": "raster",
+			"tiles": [
+				"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"
+			],
+			"attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
+		},
 		"v": {
 			"type": "vector",
 			"minzoom": 4,
@@ -92,6 +99,15 @@
 		}
 	},
 	"layers": [
+		{
+			"id": "r-raster",
+			"type": "raster",
+			"source": "r",
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "none"
+			}
+		},
 		{
 			"id": "tran-fill",
 			"type": "fill",
