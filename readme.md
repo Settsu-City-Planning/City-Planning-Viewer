@@ -8,7 +8,13 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [一般社団法人　社会基盤情報流通推進協議会$都市局$3D都市モデル（Project PLATEAU）摂津市（2020年度）$データセット](https://www.geospatial.jp/ckan/dataset/plateau-27224-settsu-shi-2020)
 
+[CSISシンプルジオコーディング](https://geocode.csis.u-tokyo.ac.jp/home/simple-geocoding/)
+
 [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/)
+
+[MapLibre GL Geocoder](https://github.com/maplibre/maplibre-gl-geocoder)
+
+[maplibre-gl-export](https://github.com/watergis/maplibre-gl-export)
 
 [PMTiles](https://docs.protomaps.com/pmtiles/)
 
@@ -39,6 +45,10 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [Add a pattern to a polygon - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/fill-pattern/)
 
+[Geocode with Nominatim - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/geocoder/)
+
+[Display map navigation controls - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/navigation/)
+
 [Show polygon information on click - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/polygon-popup-on-click/)
 
 [位置情報エンジニアリングのすすめ - 第8回「防災マップの作成③ポップアップ機能による地点の情報表示」](https://zenn.dev/mierune_inc/books/location-engineering/viewer/part8)
@@ -48,5 +58,7 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 [MapLibreでFlatGeobuf形式の町丁目ポリゴンを表示してみる](https://qiita.com/y-mto/items/185af00a224f4c9730a0)
 
 [PLATEAU の CityGML Building LOD2 を MVT にしてみた](https://qiita.com/frogcat/items/84b413c7e08c00b78c6a)
+
+[Plugins - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/plugins/)
 
 [オープンソースソフトウェア（OSS）ライセンスの比較・まとめ、GPLやMITは何が違うのか いま最も利用されているライセンスは？｜ビジネス+IT](https://www.sbbit.jp/article/cont1/34811)

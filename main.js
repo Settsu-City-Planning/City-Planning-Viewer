@@ -1,6 +1,13 @@
 import './style.css'
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
+import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
+import {
+  MaplibreExportControl,
+  Format,
+} from '@watergis/maplibre-gl-export';
+import '@watergis/maplibre-gl-export/dist/maplibre-gl-export.css';
 import { Protocol } from "pmtiles";
 import { throttle } from 'underscore';
 
@@ -127,11 +134,52 @@ document.addEventListener("DOMContentLoaded", async () => {
     map.on("moveend", function (s) {
       updateResults();
     });
-
-
   });
 
-  map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
+  const geocoderApi = {
+    forwardGeocode: async (config) => {
+      const features = [];
+      const request =
+        `https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi?addr=${config.query
+        }&charset=UTF8&constraint=大阪府摂津市`;
+      const response = await fetch(request);
+      const string = await response.text();
+      const parser = new DOMParser();
+      const xml = await parser.parseFromString(string, "text/xml");
+      const center = [
+        xml.getElementsByTagName("longitude")[0].firstChild.nodeValue,
+        xml.getElementsByTagName("latitude")[0].firstChild.nodeValue
+      ];
+      const point = {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: center
+        },
+        place_name: xml.getElementsByTagName("address")[0].textContent,
+        place_type: ['place'],
+        center
+      };
+      features.push(point);
+
+      return {
+        features
+      };
+    }
+  };
+  map.addControl(new MaplibreGeocoder(geocoderApi, { maplibregl })
+  );
+
+  map.addControl(new maplibregl.NavigationControl());
+
+  map.addControl(new MaplibreExportControl({
+    Format: Format.PNG,
+    Crosshair: true,
+    PrintableArea: true,
+    Local: 'ja',
+  }));
+
+  map.addControl(new maplibregl.ScaleControl({ maxWidth: 200 }));
 
   let check1 = document.getElementById('style');
   let check2 = document.getElementById('bdr');
