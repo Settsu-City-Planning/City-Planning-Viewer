@@ -16,6 +16,8 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [maplibre-gl-export](https://github.com/watergis/maplibre-gl-export)
 
+[Map-GL-Utils](https://github.com/stevage/map-gl-utils)
+
 [PMTiles](https://docs.protomaps.com/pmtiles/)
 
 [Underscore.js](https://underscorejs.org/)
@@ -45,7 +47,11 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [Add a pattern to a polygon - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/fill-pattern/)
 
+[Filter symbols by toggling a list - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/filter-markers/)
+
 [Geocode with Nominatim - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/geocoder/)
+
+[Add a raster tile source - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/map-tiles/)
 
 [Display map navigation controls - MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/examples/navigation/)
 
