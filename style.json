@@ -18,7 +18,7 @@
 			"tiles": [
 				"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"
 			],
-			"attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
+			"attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>測量法に基づく国土地理院長承認（複製）R 6JHf 240/本製品を複製する場合には、国土地理院の長の承認を得なければならない。</a>"
 		},
 		"v": {
 			"type": "vector",
