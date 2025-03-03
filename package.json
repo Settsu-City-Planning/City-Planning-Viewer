@@ -9,14 +9,17 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.4.1"
+    "vite": "^6.2.0"
   },
   "dependencies": {
-    "@maplibre/maplibre-gl-geocoder": "^1.7.0",
-    "@watergis/maplibre-gl-export": "^3.8.4",
-    "map-gl-utils": "^0.44.3",
-    "maplibre-gl": "^4.7.1",
-    "pmtiles": "^4.0.1",
+    "@maplibre/maplibre-gl-geocoder": "^1.8.0",
+    "@watergis/maplibre-gl-export": "^4.0.0",
+    "map-gl-utils": "^0.50.4",
+    "maplibre-gl": "^5.1.1",
+    "pmtiles": "^4.3.0",
     "underscore": "^1.13.7"
+  },
+  "overrides": {
+    "jspdf": "^3.0.0"
   }
 }
