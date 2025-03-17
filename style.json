@@ -96,6 +96,14 @@
 		"chuuki": {
 			"type": "geojson",
 			"data": "./data/chuuki.geojson"
+		},
+		"toshikinou": {
+			"type": "geojson",
+			"data": "./data/toshikinou.geojson"
+		},
+		"kyojuu": {
+			"type": "geojson",
+			"data": "./data/kyojuu.geojson"
 		}
 	},
 	"layers": [
@@ -1588,6 +1596,30 @@
 					"rgba(0,0,0,0)",
 					"rgba(0,0,0,1)"
 				]
+			}
+		},
+		{
+			"id": "kyojuufill",
+			"source": "kyojuu",
+			"type": "fill",
+			"paint": {
+				"fill-color": "#e2f41d",
+				"fill-opacity": 0.2
+			},
+			"layout": {
+				"visibility": "none"
+			}
+		},
+		{
+			"id": "toshikinoufill",
+			"source": "toshikinou",
+			"type": "fill",
+			"paint": {
+				"fill-color": "#f41d1d",
+				"fill-opacity": 0.5
+			},
+			"layout": {
+				"visibility": "none"
 			}
 		},
 		{
