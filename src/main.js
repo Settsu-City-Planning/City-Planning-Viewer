@@ -10,7 +10,8 @@ import {
 import '@watergis/maplibre-gl-export/dist/maplibre-gl-export.css';
 import U from 'map-gl-utils'
 import { Protocol } from "pmtiles";
-import { throttle } from 'underscore';
+import { deserialize } from "flatgeobuf/dist/flatgeobuf-geojson.min";
+import throttle from 'lodash.throttle';
 
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let i = 0;
     const fc = { type: "FeatureCollection", features: [] };
-    let iter = flatgeobuf.deserialize("./data/r1chikeizu.fgb", fgBoundingBox());
+    let iter = deserialize("./data/r1chikeizu.fgb", fgBoundingBox());
     for await (let feature of iter) {
       fc.features.push({ ...feature, id: i });
       i += 1;
@@ -67,8 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       })[0]);
 
       if (features[0] === undefined) return;
-      let part = []
-      part[0] = features[0].properties.区域区分
+      const part = [features[0].properties.区域区分]
       if (part[0] == "市街化区域") {
         part[1] = `<br>${features[1].properties.用途地域}
       <li>容積率：${features[1].properties.容積率}</li>
@@ -184,16 +184,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   map.addControl(new maplibregl.ScaleControl({ maxWidth: 200 }));
 
   let check1 = document.getElementById('style');
-  let check2 = document.getElementById('bdr');
+  let check2 = document.getElementById('kyk');
+  let check3 = document.getElementById('tyk');
+  let check4 = document.getElementById('bdr');
 
   document.getElementById('style').addEventListener('click', () => {
-    const bool = Boolean(check1.checked);
+    const bool = check1.checked;
     map.U.toggle('r-raster', bool);
     map.U.toggle(['tran-fill', 'bldg-fill'], !bool);
     map.U.toggleSource('v', !bool);
   });
 
+  document.getElementById('kyk').addEventListener('click', () => {
+    map.U.toggle('kyojuu-fill', check2.checked);
+    map.U.toggle('youto-fill', !(check2.checked || check3.checked));
+  });
+
+  document.getElementById('tyk').addEventListener('click', () => {
+    map.U.toggle('toshikinou-fill', check3.checked);
+    map.U.toggle('youto-fill', !(check2.checked || check3.checked));
+  });
+
   document.getElementById('bdr').addEventListener('click', () => {
-    map.U.toggle(/-symbol$/, check2.checked);
+    map.U.toggle(/-symbol$/, check4.checked);
   });
 });
