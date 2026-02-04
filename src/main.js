@@ -68,16 +68,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       })[0]);
 
       if (features[0] === undefined) return;
-      const part = [features[0].properties.区域区分]
-      if (part[0] == "市街化区域") {
-        part[1] = `<br>${features[1].properties.用途地域}
+      const parts = [features[0].properties.区域区分]
+      if (parts[0] == "市街化区域") {
+        parts.push(`${features[1].properties.用途地域}
       <li>容積率：${features[1].properties.容積率}</li>
-      <li>建ぺい率：${features[1].properties.建ぺい率}</li>`
-        part[2] = features[2]?.properties?.Type ?? "高度地区指定なし"
+      <li>建ぺい率：${features[1].properties.建ぺい率}</li>
+      ${features[2]?.properties?.Type ?? "高度地区指定なし"}`)
       }
-      part[3] = "<br>"
-      part[4] = features[3]?.properties?.防火準防火 ?? "法22条地域"
-      const HTML = part.join("");
+      parts.push(features[3]?.properties?.防火準防火 ?? "法22条地域")
+      const HTML = parts.join("<br>");
 
       new maplibregl.Popup()
         .setLngLat(e.lngLat)
