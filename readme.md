@@ -20,7 +20,7 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [PMTiles](https://docs.protomaps.com/pmtiles/)
 
-[Underscore.js](https://underscorejs.org/)
+[Lodash](https://lodash.com)
 
 [Node.js](https://nodejs.org/en)
 
