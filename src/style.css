@@ -1,27 +1,39 @@
-body { margin:0; padding:0; }
+body {
+	margin: 0;
+	padding: 0;
+}
+
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
 }
+
 #map canvas {
-  cursor: crosshair;
+	cursor: crosshair;
 }
+
 .maplibregl-popup {
 	font: 16px/20px 'BIZ UDPGothic', 'Hiragino Kaku Gothic Pro', sans-serif;
 }
+
+.maplibregl-popup-content li {
+	list-style-position: inside;
+}
+
 #menu {
 	position: absolute;
-	top:0%;
-	left:0%;
+	top: 0%;
+	left: 0%;
 	background: #3e3e3ec7;
 	color: #ffffff;
 	padding: 10px;
 	font-family: 'Open Sans', sans-serif;
 }
-#menu ul{
-	list-style:none;
-	padding:0;
-	margin:0;
+
+#menu ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }

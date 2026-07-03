@@ -2,8 +2,24 @@
 	"version": 8,
 	"name": "optbv",
 	"glyphs": "https://gsi-cyberjapan.github.io/optimal_bvmap/glyphs/{fontstack}/{range}.pbf",
-	"sprite": "https://gsi-cyberjapan.github.io/optimal_bvmap/sprite/std",
+	"sprite": [
+		{
+			"id": "ami",
+			"url": "https://settsu-city-planning.github.io/City-Planning-Viewer/sprite/ami"
+		},
+		{
+			"id": "default",
+			"url": "https://gsi-cyberjapan.github.io/optimal_bvmap/sprite/std"
+		}
+	],
 	"sources": {
+		"r": {
+			"type": "raster",
+			"tiles": [
+				"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"
+			],
+			"attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>測量法に基づく国土地理院長承認（複製）R 6JHf 240/本製品を複製する場合には、国土地理院の長の承認を得なければならない。</a>"
+		},
 		"v": {
 			"type": "vector",
 			"minzoom": 4,
@@ -12,14 +28,143 @@
 				"pmtiles://https://cyberjapandata.gsi.go.jp/xyz/optimal_bvmap-v1/optimal_bvmap-v1.pmtiles/{z}/{x}/{y}"
 			],
 			"attribution": "国土地理院最適化ベクトルタイル"
+		},
+		"tran": {
+			"type": "vector",
+			"tiles": [
+				"https://settsu-city-planning.github.io/City-Planning-Viewer/tran_mvt_lod1/{z}/{x}/{y}.mvt"
+			]
+		},
+		"bldg": {
+			"type": "vector",
+			"tiles": [
+				"https://settsu-city-planning.github.io/City-Planning-Viewer/bldg_mvt_lod1/{z}/{x}/{y}.pbf"
+			]
+		},
+		"shiiki": {
+			"type": "geojson",
+			"data": "./data/shiiki.geojson"
+		},
+		"senbiki": {
+			"type": "geojson",
+			"data": "./data/27224_senbiki.geojson"
+		},
+		"youto": {
+			"type": "geojson",
+			"data": "./data/27224_youto.geojson"
+		},
+		"tkbt": {
+			"type": "geojson",
+			"data": "./data/27224_tkbt.geojson"
+		},
+		"koudoti": {
+			"type": "geojson",
+			"data": "./data/27224_koudoti.geojson"
+		},
+		"bouka": {
+			"type": "geojson",
+			"data": "./data/27224_bouka.geojson"
+		},
+		"chikukei": {
+			"type": "geojson",
+			"data": "./data/27224_chikukei.geojson"
+		},
+		"douro": {
+			"type": "geojson",
+			"data": "./data/27224_douro.geojson"
+		},
+		"shisetsu": {
+			"type": "geojson",
+			"data": "./data/shisetsu.geojson"
+		},
+		"train": {
+			"type": "geojson",
+			"data": "./data/train.geojson"
+		},
+		"haishisen": {
+			"type": "geojson",
+			"data": "./data/haishisen.geojson"
+		},
+		"sumpousen": {
+			"type": "geojson",
+			"data": "./data/sumpousen.geojson"
+		},
+		"hikidashisen": {
+			"type": "geojson",
+			"data": "./data/hikidashisen.geojson"
+		},
+		"chuuki": {
+			"type": "geojson",
+			"data": "./data/chuuki.geojson"
+		},
+		"kyojuu": {
+			"type": "geojson",
+			"data": "./data/kyojuu.geojson"
+		},
+		"toshikinou": {
+			"type": "geojson",
+			"data": "./data/toshikinou.geojson"
 		}
 	},
 	"layers": [
 		{
-			"id": "background",
-			"type": "background",
+			"id": "r-raster",
+			"type": "raster",
+			"source": "r",
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "none"
+			}
+		},
+		{
+			"id": "tran-fill",
+			"type": "fill",
+			"source": "tran",
+			"source-layer": "Road",
+			"minzoom": 8,
+			"maxzoom": 17,
 			"paint": {
-				"background-color": "rgba(255,255,255,1)"
+				"fill-color": "#aaaaaa"
+			}
+		},
+		{
+			"id": "senbiki-fill",
+			"source": "senbiki",
+			"type": "fill",
+			"paint": {
+				"fill-opacity": 0
+			}
+		},
+		{
+			"id": "youto-fill",
+			"source": "youto",
+			"type": "fill",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"YoutoID"
+					],
+					3,
+					"#66cc66",
+					4,
+					"#ccff99",
+					5,
+					"#ffff99",
+					6,
+					"#ffcc99",
+					9,
+					"#ff99cc",
+					10,
+					"#ff6699",
+					11,
+					"#cc99ff",
+					12,
+					"#ccffff",
+					"#33cc99"
+				],
+				"fill-opacity": 0.5
 			}
 		},
 		{
@@ -27,6 +172,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "AdmArea",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(255,255,255,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -60,6 +206,7 @@
 			"source": "v",
 			"source-layer": "TpgphArea",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"filter": [
 				"in",
 				[
@@ -84,6 +231,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "Cstline",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -94,6 +242,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "RvrCL",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -104,6 +253,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "WL",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -114,6 +264,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "WRltLine",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -131,6 +282,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "WRltLine",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -148,6 +300,7 @@
 			"type": "symbol",
 			"source": "v",
 			"source-layer": "WRltLine",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -171,6 +324,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "AdmBdry",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -181,6 +335,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "Cntr",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -191,6 +346,7 @@
 			"type": "symbol",
 			"source": "v",
 			"source-layer": "Cntr",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -224,6 +380,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "Isbt",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -234,6 +391,7 @@
 			"type": "symbol",
 			"source": "v",
 			"source-layer": "Isbt",
+			"maxzoom": 18,
 			"filter": [
 				"==",
 				[
@@ -267,6 +425,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "TpgphLine",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -277,6 +436,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "WStrA",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(0,0,0,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -323,6 +483,7 @@
 			"source": "v",
 			"source-layer": "WStrL",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"filter": [
 				"in",
 				[
@@ -371,6 +532,7 @@
 			"source": "v",
 			"source-layer": "RdCL",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"filter": [
 				"all",
 				[
@@ -407,6 +569,7 @@
 		{
 			"id": "鉄道_線2",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RailCL",
@@ -437,6 +600,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "BldA",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -447,6 +611,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "UndergroundStation",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(0,0,0,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -455,6 +620,7 @@
 		{
 			"id": "道路縁",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RdEdg",
@@ -466,6 +632,7 @@
 		{
 			"id": "道路構成線",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RdCompt",
@@ -477,6 +644,7 @@
 		{
 			"id": "軌道_線",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"type": "line",
 			"source": "v",
 			"source-layer": "RailTrCL",
@@ -496,6 +664,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "SpcfArea",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -506,6 +675,7 @@
 			"type": "fill",
 			"source": "v",
 			"source-layer": "StrctArea",
+			"maxzoom": 18,
 			"paint": {
 				"fill-color": "rgba(0,0,0,0)",
 				"fill-outline-color": "rgba(0,0,0,1)"
@@ -516,6 +686,7 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "StrctArea",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -527,6 +698,7 @@
 			"source": "v",
 			"source-layer": "StrctLine",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -538,6 +710,7 @@
 			"source": "v",
 			"source-layer": "TrfTnnlEnt",
 			"minzoom": 17,
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
@@ -548,9 +721,446 @@
 			"type": "line",
 			"source": "v",
 			"source-layer": "PwrTrnsmL",
+			"maxzoom": 18,
 			"paint": {
 				"line-color": "rgba(0,0,0,1)",
 				"line-width": 1
+			}
+		},
+		{
+			"id": "tkbt-line",
+			"source": "tkbt",
+			"type": "line",
+			"paint": {
+				"line-color": "#222222"
+			}
+		},
+		{
+			"id": "koudoti-fill",
+			"source": "koudoti",
+			"type": "fill",
+			"paint": {
+				"fill-pattern": [
+					"match",
+					[
+						"get",
+						"Type"
+					],
+					"第一種高度地区",
+					"ami:1koudo",
+					"ami:2koudo"
+				],
+				"fill-opacity": 0.5
+			}
+		},
+		{
+			"id": "bouka-fill",
+			"source": "bouka",
+			"type": "fill",
+			"paint": {
+				"fill-pattern": [
+					"match",
+					[
+						"get",
+						"kubunID"
+					],
+					24,
+					"ami:bouka",
+					"ami:jumbouka"
+				],
+				"fill-opacity": 0.5
+			}
+		},
+		{
+			"id": "shiiki-line",
+			"source": "shiiki",
+			"type": "line",
+			"paint": {
+				"line-color": "#222222",
+				"line-width": 5,
+				"line-dasharray": [
+					1,
+					0.5,
+					5,
+					0.5
+				]
+			}
+		},
+		{
+			"id": "train-line",
+			"source": "train",
+			"type": "line",
+			"paint": {
+				"line-color": "#222222",
+				"line-width": 1,
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "douro-line",
+			"source": "douro",
+			"type": "line",
+			"paint": {
+				"line-color": "#ee5511",
+				"line-width": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					2,
+					0.1,
+					18,
+					2
+				],
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "shisetsu-line",
+			"source": "shisetsu",
+			"type": "line",
+			"paint": {
+				"line-color": [
+					"match",
+					[
+						"get",
+						"code"
+					],
+					2222,
+					"#008000",
+					3010,
+					"#ff8000",
+					3013,
+					"#804000",
+					3021,
+					"#008000",
+					3022,
+					"#008000",
+					4004,
+					"#ff8000",
+					"#806300"
+				],
+				"line-width": 4,
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "chikukei-line",
+			"source": "chikukei",
+			"type": "line",
+			"paint": {
+				"line-color": "#0000ff",
+				"line-width": 3,
+				"line-opacity": 0.8
+			}
+		},
+		{
+			"id": "haishisen-line",
+			"source": "haishisen",
+			"type": "line",
+			"paint": {
+				"line-color": "#0087ff",
+				"line-dasharray": [
+					7,
+					5
+				]
+			}
+		},
+		{
+			"id": "sumpousen-line",
+			"source": "sumpousen",
+			"type": "line",
+			"minzoom": 15,
+			"paint": {
+				"line-color": "#ee5511",
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "bldg-fill",
+			"type": "fill-extrusion",
+			"source": "bldg",
+			"source-layer": "bldg:Building",
+			"minzoom": 8,
+			"maxzoom": 17,
+			"paint": {
+				"fill-extrusion-color": "#aaaaaa",
+				"fill-extrusion-height": [
+					"get",
+					"measuredHeight"
+				],
+				"fill-extrusion-opacity": 0.7
+			}
+		},
+		{
+			"id": "hikidashisen-line",
+			"source": "hikidashisen",
+			"type": "line",
+			"minzoom": 15,
+			"paint": {
+				"line-color": "#ee5511",
+				"line-width": 3,
+				"line-opacity": 0.5
+			}
+		},
+		{
+			"id": "tran-symbol",
+			"source": "tran",
+			"source-layer": "Road",
+			"minzoom": 16,
+			"type": "symbol",
+			"layout": {
+				"text-field": [
+					"get",
+					"gml_name"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					16,
+					12
+				]
+			},
+			"paint": {
+				"text-color": "#222222",
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "chikukei-symbol",
+			"source": "chikukei",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"text-field": [
+					"get",
+					"名称"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					16,
+					12
+				]
+			},
+			"paint": {
+				"text-color": "#0000ff",
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "douro-symbol",
+			"source": "douro",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"symbol-placement": "line-center",
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff",
+				"text-opacity": 0.7
+			}
+		},
+		{
+			"id": "shisetsu-symbol",
+			"source": "shisetsu",
+			"type": "symbol",
+			"minzoom": 13,
+			"layout": {
+				"text-field": [
+					"get",
+					"name"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					13,
+					8,
+					20,
+					16
+				]
+			},
+			"paint": {
+				"text-color": [
+					"match",
+					[
+						"get",
+						"code"
+					],
+					2222,
+					"#008000",
+					3010,
+					"#ff8000",
+					3013,
+					"#804000",
+					3021,
+					"#008000",
+					3022,
+					"#008000",
+					4004,
+					"#ff8000",
+					"#806300"
+				],
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "sumpousen-symbol",
+			"source": "sumpousen",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"symbol-placement": "line-center",
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "hikidashisen-symbol",
+			"source": "hikidashisen",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					32
+				]
+			},
+			"paint": {
+				"text-halo-width": 2,
+				"text-halo-color": "#fff"
+			}
+		},
+		{
+			"id": "chuuki-symbol",
+			"source": "chuuki",
+			"type": "symbol",
+			"minzoom": 15,
+			"layout": {
+				"text-field": [
+					"get",
+					"text"
+				],
+				"text-font": [
+					"NotoSansJP-Regular"
+				],
+				"text-anchor": "center",
+				"text-size": [
+					"interpolate",
+					[
+						"linear"
+					],
+					[
+						"zoom"
+					],
+					15,
+					8,
+					20,
+					16
+				]
+			},
+			"paint": {
+				"text-halo-width": 1,
+				"text-halo-color": "#fff"
 			}
 		},
 		{
@@ -911,7 +1521,7 @@
 				]
 			},
 			"paint": {
-				"text-color":[
+				"text-color": [
 					"match",
 					[
 						"get",
@@ -927,7 +1537,7 @@
 						662
 					],
 					"rgba(0,0,0,0)",
-					 "rgba(0,0,0,1)"
+					"rgba(0,0,0,1)"
 				]
 			}
 		},
@@ -1009,7 +1619,7 @@
 				]
 			},
 			"paint": {
-				"text-color":[
+				"text-color": [
 					"match",
 					[
 						"get",
@@ -1030,6 +1640,30 @@
 					"rgba(0,0,0,0)",
 					"rgba(0,0,0,1)"
 				]
+			}
+		},
+		{
+			"id": "kyojuu-fill",
+			"source": "kyojuu",
+			"type": "fill",
+			"paint": {
+				"fill-color": "#e2f41d",
+				"fill-opacity": 0.2
+			},
+			"layout": {
+				"visibility": "none"
+			}
+		},
+		{
+			"id": "toshikinou-fill",
+			"source": "toshikinou",
+			"type": "fill",
+			"paint": {
+				"fill-color": "#f41d1d",
+				"fill-opacity": 0.5
+			},
+			"layout": {
+				"visibility": "none"
 			}
 		},
 		{

@@ -11,7 +11,7 @@ import '@watergis/maplibre-gl-export/dist/maplibre-gl-export.css';
 import U from 'map-gl-utils'
 import { Protocol } from "pmtiles";
 import { deserialize } from "flatgeobuf/dist/flatgeobuf-geojson.min";
-import throttle from 'lodash.throttle';
+import { throttle } from 'es-toolkit';
 
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const map = new maplibregl.Map({
     container: 'map',
     hash: true,
-    style: './style.json',
+    style: './style/skeleton.json',
     center: [135.57, 34.777],
     zoom: 13,
     maxZoom: 19,
