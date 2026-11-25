@@ -1,9 +1,11 @@
 # 都市計画決定GISデータビューア
 
 ## デモサイト
+
 https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 ## 使用したデータ・ライブラリ・ツール
+
 [都市交通調査・都市計画調査：都市計画決定GISデータ　全国データダウンロードページ - 国土交通省](https://www.mlit.go.jp/toshi/tosiko/toshi_tosiko_tk_000087.html)
 
 [一般社団法人　社会基盤情報流通推進協議会$都市局$3D都市モデル（Project PLATEAU）摂津市（2020年度）$データセット](https://www.geospatial.jp/ckan/dataset/plateau-27224-settsu-shi-2020)
@@ -14,17 +16,17 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 
 [MapLibre GL Geocoder](https://github.com/maplibre/maplibre-gl-geocoder)
 
-[maplibre-gl-export](https://github.com/watergis/maplibre-gl-export)
+[maplibre-gl-export](https://maplibre-gl-export.water-gis.com/)
 
 [Map-GL-Utils](https://github.com/stevage/map-gl-utils)
 
 [PMTiles](https://docs.protomaps.com/pmtiles/)
 
-[Lodash](https://lodash.com)
+[es-toolkit](https://es-toolkit.dev/)
 
-[Node.js](https://nodejs.org/en)
+[Node.js](https://nodejs.org/ja)
 
-[Vite](https://ja.vite.dev/)
+[Vite+](https://viteplus.dev/)
 
 [Visual Studio Code](https://code.visualstudio.com/)
 
@@ -35,6 +37,7 @@ https://settsu-city-planning.github.io/City-Planning-Viewer/
 [PLATEAU GIS Converter](https://github.com/Project-PLATEAU/PLATEAU-GIS-Converter)
 
 ## 参考文献・サイト
+
 [現場のプロがわかりやすく教える 位置情報エンジニア養成講座](https://www.shuwasystem.co.jp/book/9784798068923.html)
 
 [最適化ベクトルタイル試験公開](https://github.com/gsi-cyberjapan/optimal_bvmap)

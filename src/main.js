@@ -1,210 +1,194 @@
-import './style.css'
-import maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
-import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
-import {
-  MaplibreExportControl,
-  Format,
-} from '@watergis/maplibre-gl-export';
-import '@watergis/maplibre-gl-export/dist/maplibre-gl-export.css';
-import U from 'map-gl-utils'
+import "./style.css";
+import * as maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
+import MaplibreGeocoder from "@maplibre/maplibre-gl-geocoder";
+import "@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css";
+import { MaplibreExportControl, Format } from "@watergis/maplibre-gl-export";
+import "@watergis/maplibre-gl-export/dist/maplibre-gl-export.css";
+import U from "map-gl-utils";
 import { Protocol } from "pmtiles";
 import { deserialize } from "flatgeobuf/dist/flatgeobuf-geojson.min";
-import { throttle } from 'es-toolkit';
+import { throttle } from "es-toolkit";
+
+maplibregl.setWorkerUrl(workerUrl);
 
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
 const fgbMinZoom = 18;
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // basic MapLibre map
-  const map = new maplibregl.Map({
-    container: 'map',
-    hash: true,
-    style: './style/skeleton.json',
-    center: [135.57, 34.777],
-    zoom: 13,
-    maxZoom: 19,
-    minZoom: 4,
-    localIdeographFontFamily: ['BIZ UDPGothic', 'sans-serif']
-  });
-  U.init(map)
+// basic MapLibre map
+const map = new maplibregl.Map({
+  container: "map",
+  hash: true,
+  style: "./style/skeleton.json",
+  center: [135.57, 34.777],
+  zoom: 13,
+  maxZoom: 19,
+  minZoom: 4,
+  localIdeographFontFamily: ["BIZ UDPGothic", "sans-serif"],
+});
+U.init(map);
 
-  // convert the rect into the format flatgeobuf expects
-  function fgBoundingBox() {
-    const { _sw, _ne } = map.getBounds();
-    return {
-      minX: _sw.lng,
-      minY: _sw.lat,
-      maxX: _ne.lng,
-      maxY: _ne.lat,
-    };
+// バウンディングボックスをFlatGeobufで期待される形式に変換
+function fgBoundingBox() {
+  const { _sw, _ne } = map.getBounds();
+  return {
+    minX: _sw.lng,
+    minY: _sw.lat,
+    maxX: _ne.lng,
+    maxY: _ne.lat,
+  };
+}
+
+// バウンディングボックス内のポリゴンデータを取得してソースにセット
+async function updateResults() {
+  if (map.getZoom() < fgbMinZoom) {
+    return;
   }
 
-  async function updateResults() {
-    if (map.getZoom() < fgbMinZoom) {
-      return;
-    };
-
-    let i = 0;
-    const fc = { type: "FeatureCollection", features: [] };
-    let iter = deserialize("./data/r1chikeizu.fgb", fgBoundingBox());
-    for await (let feature of iter) {
-      fc.features.push({ ...feature, id: i });
-      i += 1;
-    }
-    map.getSource("blocks").setData(fc);
+  let i = 0;
+  const fc = { type: "FeatureCollection", features: [] };
+  let iter = deserialize("./data/r1chikeizu.fgb", { rect: fgBoundingBox() });
+  for await (let feature of iter) {
+    fc.features.push({ ...feature, id: i });
+    i += 1;
   }
+  map.getSource("blocks").setData(fc);
+}
 
-  map.on("load", () => {
-    // When a click event occurs on a feature in the states layer, open a popup at the
-    // location of the click, with description HTML from its properties.
-    map.on('click', (e) => {
-      const layers = ["senbiki-fill", "youto-fill", "koudoti-fill", "bouka-fill"];
-      const features = layers.map(layer => map.queryRenderedFeatures(e.point, {
-        layers: [layer],
-      })[0]);
+map.on("load", () => {
+  // When a click event occurs on a feature in the states layer, open a popup at the
+  // location of the click, with description HTML from its properties.
+  map.on("click", (e) => {
+    const layers = ["senbiki-fill", "youto-fill", "koudoti-fill", "bouka-fill"];
+    const features = layers.map(
+      (layer) =>
+        map.queryRenderedFeatures(e.point, {
+          layers: [layer],
+        })[0],
+    );
 
-      if (features[0] === undefined) return;
-      const parts = [features[0].properties.区域区分]
-      if (parts[0] == "市街化区域") {
-        parts.push(`${features[1].properties.用途地域}
+    if (features[0] === undefined) return;
+    const parts = [features[0].properties.区域区分];
+    if (parts[0] == "市街化区域") {
+      parts.push(`${features[1].properties.用途地域}
       <li>容積率：${features[1].properties.容積率}</li>
       <li>建ぺい率：${features[1].properties.建ぺい率}</li>
-      ${features[2]?.properties?.Type ?? "高度地区指定なし"}`)
-      }
-      parts.push(features[3]?.properties?.防火準防火 ?? "法22条地域")
-      const HTML = parts.join("<br>");
+      ${features[2]?.properties?.Type ?? "高度地区指定なし"}`);
+    }
+    parts.push(features[3]?.properties?.防火準防火 ?? "法22条地域");
+    const HTML = parts.join("<br>");
 
-      new maplibregl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(HTML)
-        .addTo(map);
-    });
-
-    map.addSource("blocks", {
-      type: "geojson",
-      data: { type: "FeatureCollection", features: [] },
-    });
-    map.addLayer({
-      "id": "blocks-line",
-      "type": "line",
-      "source": "blocks",
-      "minzoom": fgbMinZoom,
-      "paint": {
-        "line-color": [
-          "match",
-          [
-            "get",
-            "layer"
-          ],
-          "建物",
-          "#232323",
-          "道路",
-          "#232323",
-          "名称",
-          "#a8a1ad",
-          "#7b7b7d"
-        ],
-        "line-width": [
-          "match",
-          [
-            "get",
-            "layer"
-          ],
-          "鉄道",
-          2.6,
-          "行政界等",
-          1.6,
-          "河川",
-          1.6,
-          0.6
-        ],
-      }
-    });
-
-    // if the user is panning around alot, only update twice per second max
-    updateResults = throttle(updateResults, 500);
-
-    // show results based on the initial map
-    updateResults();
-
-    // ...and update the results whenever the map moves
-    map.on("moveend", function (s) {
-      updateResults();
-    });
+    new maplibregl.Popup().setLngLat(e.lngLat).setHTML(HTML).addTo(map);
   });
 
-  const geocoderApi = {
-    forwardGeocode: async (config) => {
-      const features = [];
-      const request =
-        `https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi?addr=${config.query
-        }&charset=UTF8&constraint=大阪府摂津市`;
-      const response = await fetch(request);
-      const string = await response.text();
-      const parser = new DOMParser();
-      const xml = await parser.parseFromString(string, "text/xml");
-      const center = [
-        xml.getElementsByTagName("longitude")[0].firstChild.nodeValue,
-        xml.getElementsByTagName("latitude")[0].firstChild.nodeValue
-      ];
-      const point = {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: center
-        },
-        place_name: xml.getElementsByTagName("address")[0].textContent,
-        place_type: ['place'],
-        center
-      };
-      features.push(point);
+  map.addSource("blocks", {
+    type: "geojson",
+    data: { type: "FeatureCollection", features: [] },
+  });
+  map.addLayer({
+    id: "blocks-line",
+    type: "line",
+    source: "blocks",
+    minzoom: fgbMinZoom,
+    paint: {
+      "line-color": [
+        "match",
+        ["get", "layer"],
+        "建物",
+        "#232323",
+        "道路",
+        "#232323",
+        "名称",
+        "#a8a1ad",
+        "#7b7b7d",
+      ],
+      "line-width": ["match", ["get", "layer"], "鉄道", 2.6, "行政界等", 1.6, "河川", 1.6, 0.6],
+    },
+  });
 
-      return {
-        features
-      };
-    }
-  };
-  map.addControl(new MaplibreGeocoder(geocoderApi, { maplibregl })
-  );
+  // if the user is panning around alot, only update twice per second max
+  const updateResultsThrottled = throttle(updateResults, 500);
 
-  map.addControl(new maplibregl.NavigationControl());
+  // show results based on the initial map
+  updateResultsThrottled();
 
-  map.addControl(new MaplibreExportControl({
+  // ...and update the results whenever the map moves
+  map.on("moveend", () => {
+    updateResultsThrottled();
+  });
+});
+
+const geocoderApi = {
+  forwardGeocode: async (config) => {
+    const features = [];
+    const request = `https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi?addr=${
+      config.query
+    }&charset=UTF8&constraint=大阪府摂津市`;
+    const response = await fetch(request);
+    const string = await response.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(string, "text/xml");
+    const center = [
+      xml.getElementsByTagName("longitude")[0].firstChild.nodeValue,
+      xml.getElementsByTagName("latitude")[0].firstChild.nodeValue,
+    ];
+    const point = {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: center,
+      },
+      place_name: xml.getElementsByTagName("address")[0].textContent,
+      place_type: ["place"],
+      center,
+    };
+    features.push(point);
+
+    return {
+      features,
+    };
+  },
+};
+map.addControl(new MaplibreGeocoder(geocoderApi, { maplibregl }));
+
+map.addControl(new maplibregl.NavigationControl());
+
+map.addControl(
+  new MaplibreExportControl({
     Format: Format.PNG,
     Crosshair: true,
     PrintableArea: true,
-    Local: 'ja',
-  }));
+    Local: "ja",
+  }),
+);
 
-  map.addControl(new maplibregl.ScaleControl({ maxWidth: 200 }));
+map.addControl(new maplibregl.ScaleControl({ maxWidth: 200 }));
 
-  let check1 = document.getElementById('style');
-  let check2 = document.getElementById('kyk');
-  let check3 = document.getElementById('tyk');
-  let check4 = document.getElementById('bdr');
+let check1 = document.getElementById("style");
+let check2 = document.getElementById("kyk");
+let check3 = document.getElementById("tyk");
+let check4 = document.getElementById("bdr");
 
-  document.getElementById('style').addEventListener('click', () => {
-    const bool = check1.checked;
-    map.U.toggle('r-raster', bool);
-    map.U.toggle(['tran-fill', 'bldg-fill'], !bool);
-    map.U.toggleSource('v', !bool);
-  });
+document.getElementById("style").addEventListener("click", () => {
+  const bool = check1.checked;
+  map.U.toggle("r-raster", bool);
+  map.U.toggle(["tran-fill", "bldg-fill"], !bool);
+  map.U.toggleSource("v", !bool);
+});
 
-  document.getElementById('kyk').addEventListener('click', () => {
-    map.U.toggle('kyojuu-fill', check2.checked);
-    map.U.toggle('youto-fill', !(check2.checked || check3.checked));
-  });
+document.getElementById("kyk").addEventListener("click", () => {
+  map.U.toggle("kyojuu-fill", check2.checked);
+  map.U.toggle("youto-fill", !(check2.checked || check3.checked));
+});
 
-  document.getElementById('tyk').addEventListener('click', () => {
-    map.U.toggle('toshikinou-fill', check3.checked);
-    map.U.toggle('youto-fill', !(check2.checked || check3.checked));
-  });
+document.getElementById("tyk").addEventListener("click", () => {
+  map.U.toggle("toshikinou-fill", check3.checked);
+  map.U.toggle("youto-fill", !(check2.checked || check3.checked));
+});
 
-  document.getElementById('bdr').addEventListener('click', () => {
-    map.U.toggle(/-symbol$/, check4.checked);
-  });
+document.getElementById("bdr").addEventListener("click", () => {
+  map.U.toggle(/-symbol$/, check4.checked);
 });
